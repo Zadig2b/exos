@@ -1,0 +1,73 @@
+.player {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 40px;
+    height: 200px;
+}
+
+.arm {
+    position: absolute;
+    left: -50px;
+    width: 100px;
+    height: 10px;
+    background-color: rgb(167, 108, 31);    
+}
+
+.front {
+    background-color: aliceblue;
+    transform: rotate(25deg);
+}
+.behind {
+    background-color: rgb(33, 41, 48);
+
+}
+
+.chest {
+    position: absolute;
+    bottom: 100;
+    left: 50%;
+    width: 40px;
+    height: 100px;
+    background-color: rgb(227, 189, 138);   
+}
+.head {
+    position: absolute;
+    top: -70px;
+    left: 15px;
+    width: 50px;
+    height: 50px;
+    background-color: rgb(131, 115, 92);
+    border-radius: 20%;    
+}
+.neck {
+    position: absolute;
+    top: -20px;
+    left: 25px;
+    width: 25px;
+    height: 30px;
+    background-color: rgb(131, 115, 92);
+}
+
+.short {
+    position: absolute;
+    left: 20px;
+    top: 100px;
+    width: 40px;
+    height: 50px;
+    background-color: aliceblue;
+}
+
+.leg-front{
+    position: absolute;
+    bottom: 0px;    
+    width: 20px;
+    height: 200px;
+}
+
+.leg-behind{
+    position: absolute;
+    bottom: 0px;
+    width: 20px;
+    height: 100px;
+}
