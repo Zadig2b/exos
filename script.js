@@ -73,7 +73,7 @@ document.addEventListener('keydown', (event) => {
 const ball = document.querySelector('.ball');
 
 function launchBall(velocityFactor) {
-    let initialVelocity = { dx: -4 * velocityFactor, dy: -4 * velocityFactor}; // Adjust direction of ball movement
+    let initialVelocity = { dx: -4 , dy: -4 }; // Adjust direction of ball movement
     const initialPosition = { x: -40, y: -20 }; // (left and top CSS)
     let position = { x: initialPosition.x, y: initialPosition.y };
 
@@ -108,16 +108,22 @@ function launchBall(velocityFactor) {
             //TOP CONSTRAINT
         } else if (ballRect.y < playgroundRect.top){
         initialVelocity = { dx: -2, dy: 2 }; 
+        Bounce()
         //BOTTOM CONSTRAINT
         } else if (ballRect.y > playgroundRect.bottom - floorRect.height - ball.clientHeight) {
             initialVelocity = { dx: 2, dy: -2 }; 
+            Bounce()
+
             //LEFT CONSTRAINT
         } else if (ballRect.x < playgroundRect.left) {
             initialVelocity = { dx: 2, dy: 2 }; 
+            Bounce()
+
             //GOAL CONSTRAINT
         } else if (
             ballRect.left >= filetRect.left &&
-            ballRect.bottom === filetRect.bottom &&
+            ballRect.bottom >= filetRect.bottom &&
+            ballRect.top <= filetRect.top &&
             ballRect.right <= filetRect.right             
         ){
             console.log('filetRect.right is '+filetRect.right );
@@ -127,6 +133,7 @@ function launchBall(velocityFactor) {
             console.log('filetRect.bottom is '+filetRect.bottom);
             console.log('ballRect.bottom is'+ballRect.bottom  );
 
+// --------------------------------- GOAL LOGIC ------------------------------------------
 
             if (!goalScored){
                 console.log('Ball is inside the net');
@@ -135,7 +142,10 @@ function launchBall(velocityFactor) {
 
                 setTimeout(() => {
                     goalScored = false;
-                }, 3000);
+                    const goalMessage = document.querySelector('.goal-message');
+                    goalMessage.style.backgroundColor = 'rgb(90, 90, 152)';
+
+                }, 1000);
             }
         }
     }
@@ -146,12 +156,17 @@ function launchBall(velocityFactor) {
     const animationInterval = setInterval(updatePosition, 10);
 }
 let animationInterval;
+
 let score = 0
 let goalScored = false;
 function goal (){
      score += 1;
      console.log("score is "+ score);
-}
+     const goalMessage = document.querySelector('.goal-message');
+     goalMessage.textContent = `${score}`;
+     goalMessage.style.backgroundColor = '#f4a460';
+     const filet = document.querySelector('.filet');
+    }
 
 
 let bounceCount = 0;

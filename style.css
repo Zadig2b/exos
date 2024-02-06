@@ -80,7 +80,8 @@ bottom: 0;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     transition: all 0.3s ease-out 10ms;
     cursor: pointer;
-        
+    background-color: rgb(200, 176, 176);
+   
 }
 
     .team-img:hover {
@@ -90,5 +91,30 @@ bottom: 0;
     .nba-img {
         width: 100px;
         height: auto;
+    }
+
+    .goal-message {
+        margin-right: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        right: 0;
+        width: 100px;
+        height: 100px;
+        background-color: rgb(90, 90, 152);
+        transform: translateY(30%);
+        transition: "transform" 0.3s ease-out 1000ms;
+        border-radius: 50%;
+        border: 2px solid sandybrown;
+        font-size: 50px;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        color: rgb(80, 62, 26);
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        border: 2px solid white; /* add a white border */
+        text-shadow: 2px 0 #fff, -2px 0 #fff, 0 2px #fff, 0 -2px #fff,
+             1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+
+
     }
 
