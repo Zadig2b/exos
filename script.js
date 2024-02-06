@@ -72,15 +72,27 @@ document.addEventListener('keydown', (event) => {
 
 const ball = document.querySelector('.ball');
 
-function launchBall(velocityFactor) {
+function launchBall(userVelocity = 1) {
     let initialVelocity = { dx: -4 , dy: -4 }; // Adjust direction of ball movement
     const initialPosition = { x: -40, y: -20 }; // (left and top CSS)
+    let gravity = 0
     let position = { x: initialPosition.x, y: initialPosition.y };
 
     
     function updatePosition() {
-        position.x += initialVelocity.dx;
-        position.y += initialVelocity.dy;
+
+        gravity += 0.1;
+
+        // Adjust initial velocity based on velocity factor and user-supplied userVelocity
+        const adjustedVelocity = {
+            dx: initialVelocity.dx *  (1 * userVelocity*2),
+            dy: initialVelocity.dy * (1 + userVelocity*2) + gravity,
+        };
+        // console.log(finalVelocityFactor);
+        console.log(userVelocity);
+        console.log(gravity);
+        position.x += adjustedVelocity.dx;
+        position.y += adjustedVelocity.dy;
     
         // Update the ball position
         ball.style.left = `${position.x}px`;
@@ -109,6 +121,7 @@ function launchBall(velocityFactor) {
         } else if (ballRect.y < playgroundRect.top){
         initialVelocity = { dx: -2, dy: 2 }; 
         Bounce()
+
         //BOTTOM CONSTRAINT
         } else if (ballRect.y > playgroundRect.bottom - floorRect.height - ball.clientHeight) {
             initialVelocity = { dx: 2, dy: -2 }; 
@@ -132,6 +145,9 @@ function launchBall(velocityFactor) {
             console.log('ballRect.left is'+ballRect.left  );
             console.log('filetRect.bottom is '+filetRect.bottom);
             console.log('ballRect.bottom is'+ballRect.bottom  );
+            console.log('filetRect.top is '+filetRect.top);
+            console.log('ballRect.top is'+ballRect.top  );
+
 
 // --------------------------------- GOAL LOGIC ------------------------------------------
 
@@ -151,11 +167,30 @@ function launchBall(velocityFactor) {
     }
     
     
-
     // Set up the animation loop
     const animationInterval = setInterval(updatePosition, 10);
+
+
+let bounceCount = 0;
+const maxBounces = 3; 
+
+    function Bounce() {
+    bounceCount++;
+
+    if (bounceCount >= maxBounces) {
+        // Stop the animation after reaching the maximum number of bounces
+        clearInterval(animationInterval);
+        ball.style.left = `${initialPosition.x}px`;
+        ball.style.top = `${initialPosition.y}px`;
+        console.log('Animation stopped.');
+        return;
+        }
+    }       
 }
-let animationInterval;
+
+// --------------------------------- END OF LAUNCHBALL FUNCTION ------------------------------------------
+
+
 
 let score = 0
 let goalScored = false;
@@ -169,32 +204,7 @@ function goal (){
     }
 
 
-let bounceCount = 0;
-const maxBounces = 5; 
 
-function Bounce() {
-    bounceCount++;
-
-    if (bounceCount > maxBounces) {
-        // Stop the animation after reaching the maximum number of bounces
-        clearInterval(animationInterval);
-        console.log('Animation stopped.');
-        return;
-    }
-
-    // Decrease bouncing by 20% for each bounce
-    const bounceFactor = 1 - (0.2 * bounceCount);
-
-    // Get the boundaries of the playground dynamically
-    const playgroundRect = document.querySelector('.playground').getBoundingClientRect();
-    const ballRect = ball.getBoundingClientRect();
-
-    // Update the ball position with reduced bouncing
-    const newY = playgroundRect.top - (ball.clientHeight * bounceFactor);
-    ball.style.top = `${newY}px`;
-
-    console.log(`Bounce ${bounceCount}: Ball position updated to ${newY}px`);
-}
 
 // --------------------------- GESTION DU TEMPS DE PRESSION DU CLIC ------------------------------------
 
@@ -213,10 +223,10 @@ document.addEventListener('keyup', (event) => {
         const pressDuration = spaceKeyUpTime - spaceKeyDownTime;
 
         // Convert press duration to a factor for adjusting the velocity
-        const velocityFactor = Math.min(1, pressDuration / 1000); // Maximum factor is 1    }
+        const userVelocity = Math.min(1, pressDuration / 1000 ); // Maximum factor is 1    }
         console.log('space released. press duration:', pressDuration, 'ms');
 
-        launchBall(velocityFactor);
+        launchBall(userVelocity);
         // Reset the variables for the next press
         spaceKeyDownTime = null;
         spaceKeyUpTime = null;
