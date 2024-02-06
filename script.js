@@ -36,6 +36,20 @@ console.log(spursTeam);
 console.log(spursPlayer);
 
 
+const hitSound = document.getElementById('hitSound');
+const goalSound = document.getElementById('goalSound');
+
+function playHitSound() {
+    hitSound.currentTime = 0;
+    hitSound.play();
+}
+function playgoalSound() {
+    goalSound.currentTime = 0;
+    goalSound.play();
+}
+
+
+
 // --------------------------- GESTION D'ANIMATION DU JOUEUR------------------------------------
 
 const player = document.querySelector('.player');
@@ -119,17 +133,19 @@ function launchBall(userVelocity = 1) {
             ball.style.top = `${initialPosition.y}px`;
             //TOP CONSTRAINT
         } else if (ballRect.y < playgroundRect.top){
+            Bounce()
         initialVelocity = { dx: -2, dy: 2 }; 
-        Bounce()
+        playHitSound()
 
         //BOTTOM CONSTRAINT
         } else if (ballRect.y > playgroundRect.bottom - floorRect.height - ball.clientHeight) {
-            initialVelocity = { dx: 2, dy: -2 }; 
             Bounce()
-
+            initialVelocity = { dx: 2, dy: -2 }; 
+            playHitSound()
             //LEFT CONSTRAINT
         } else if (ballRect.x < playgroundRect.left) {
-            initialVelocity = { dx: 2, dy: 2 }; 
+            playHitSound()
+            initialVelocity = { dx: 4, dy: -2 }; 
             Bounce()
 
             //GOAL CONSTRAINT
@@ -195,6 +211,7 @@ const maxBounces = 3;
 let score = 0
 let goalScored = false;
 function goal (){
+    playgoalSound()
      score += 1;
      console.log("score is "+ score);
      const goalMessage = document.querySelector('.goal-message');
