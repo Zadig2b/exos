@@ -13,9 +13,8 @@ const spursTeam = new Team(2, "Spurs", "./res/Spurs/spurs.png", spursPlayer);
 const sixersTeam = new Team(1, "76ers", "./res/76ers/76ers2.svg", sixersPlayer);
 const bullsTeam = new Team(1, "Bulls", "./res/Bulls/Bulls_de_Chicago_logo.svg", bullsPlayer);
 
-// var test = document.getElementById('test');
-// var img = test.createElement('img');
-// img = spursTeam.img
+
+
 
 function getImage(){
     return Player.img
@@ -118,6 +117,9 @@ function launchBall(userVelocity = 1) {
         const filetRect = document.querySelector('.filet').getBoundingClientRect();
         const floorRect = document.querySelector('.floor').getBoundingClientRect();
 
+        // Get the boundaries of Panier
+        const panierRect = document.querySelector('.panier').getBoundingClientRect();
+
         // STOP ANIMATION AT CONDITION
         if (
             ballRect.x + ball.clientWidth > playgroundRect.right || 
@@ -132,19 +134,16 @@ function launchBall(userVelocity = 1) {
             //TOP CONSTRAINT
         } else if (ballRect.y < playgroundRect.top){
             Bounce()
-        initialVelocity = { dx: -2, dy: 2 }; 
         playHitSound()
 
         //BOTTOM CONSTRAINT
         } else if (ballRect.y > playgroundRect.bottom - floorRect.height - ball.clientHeight) {
             Bounce()
-            initialVelocity = { dx: 2, dy: -2 }; 
             playHitSound()
             //LEFT CONSTRAINT
         } else if (ballRect.x < playgroundRect.left) {
             playHitSound()
-            initialVelocity = { dx: 4, dy: -2 }; 
-            Bounce()
+            Bounce()     
 
             //GOAL CONSTRAINT
         } else if (
