@@ -102,9 +102,8 @@ function launchBall(userVelocity = 1) {
             dx: initialVelocity.dx *  (1 * userVelocity*2),
             dy: initialVelocity.dy * (1 + userVelocity*2) + gravity,
         };
-        // console.log(finalVelocityFactor);
-        console.log(userVelocity);
-        console.log(gravity);
+        // console.log(userVelocity);
+        // console.log(gravity);
         position.x += adjustedVelocity.dx;
         position.y += adjustedVelocity.dy;
     
@@ -118,7 +117,6 @@ function launchBall(userVelocity = 1) {
         const playerRect = document.querySelector('.player').getBoundingClientRect();
         const filetRect = document.querySelector('.filet').getBoundingClientRect();
         const floorRect = document.querySelector('.floor').getBoundingClientRect();
-        // console.log(ballRect, "ballRect");
 
         // STOP ANIMATION AT CONDITION
         if (
@@ -155,14 +153,14 @@ function launchBall(userVelocity = 1) {
             ballRect.top <= filetRect.top &&
             ballRect.right <= filetRect.right             
         ){
-            console.log('filetRect.right is '+filetRect.right );
-            console.log('ballRect.right is '+ballRect.right);
-            console.log('filetRect.left is '+filetRect.left);
-            console.log('ballRect.left is'+ballRect.left  );
-            console.log('filetRect.bottom is '+filetRect.bottom);
-            console.log('ballRect.bottom is'+ballRect.bottom  );
-            console.log('filetRect.top is '+filetRect.top);
-            console.log('ballRect.top is'+ballRect.top  );
+            // console.log('filetRect.right is '+filetRect.right );
+            // console.log('ballRect.right is '+ballRect.right);
+            // console.log('filetRect.left is '+filetRect.left);
+            // console.log('ballRect.left is'+ballRect.left  );
+            // console.log('filetRect.bottom is '+filetRect.bottom);
+            // console.log('ballRect.bottom is'+ballRect.bottom  );
+            // console.log('filetRect.top is '+filetRect.top);
+            // console.log('ballRect.top is'+ballRect.top  );
 
 
 // --------------------------------- GOAL LOGIC ------------------------------------------
@@ -171,12 +169,10 @@ function launchBall(userVelocity = 1) {
                 console.log('Ball is inside the net');
                 goal()
                 goalScored = true;
-
                 setTimeout(() => {
                     goalScored = false;
                     const goalMessage = document.querySelector('.goal-message');
                     goalMessage.style.backgroundColor = 'rgb(90, 90, 152)';
-
                 }, 1000);
             }
         }
@@ -192,7 +188,7 @@ const maxBounces = 3;
 
     function Bounce() {
     bounceCount++;
-
+    console.log("bounceCount: "+bounceCount);
     if (bounceCount >= maxBounces) {
         // Stop the animation after reaching the maximum number of bounces
         clearInterval(animationInterval);
@@ -200,7 +196,11 @@ const maxBounces = 3;
         ball.style.top = `${initialPosition.y}px`;
         console.log('Animation stopped.');
         return;
+        } else {
+            initialVelocity = { dx: 2, dy: -2 }; 
+
         }
+
     }       
 }
 
@@ -227,10 +227,13 @@ function goal (){
 
 let spaceKeyDownTime;
 let spaceKeyUpTime;
-
+let userVelocity;
 document.addEventListener('keydown', (event) => {
     if (event.code === 'Space' && !spaceKeyDownTime) {
         spaceKeyDownTime = new Date();
+        const bar = document.querySelector('.bar')
+        bar.style.width = `${userVelocity * 100}%`;
+
     }
 });
 
@@ -238,17 +241,18 @@ document.addEventListener('keyup', (event) => {
     if (event.code === 'Space' && spaceKeyDownTime){
         spaceKeyUpTime = new Date ();
         const pressDuration = spaceKeyUpTime - spaceKeyDownTime;
-
         // Convert press duration to a factor for adjusting the velocity
-        const userVelocity = Math.min(1, pressDuration / 1000 ); // Maximum factor is 1    }
+         userVelocity = Math.min(1, pressDuration / 1000 ); // Maximum factor is 1
         console.log('space released. press duration:', pressDuration, 'ms');
-
+        const bar = document.querySelector('.bar')
+        bar.style.width = '0';
         launchBall(userVelocity);
         // Reset the variables for the next press
         spaceKeyDownTime = null;
         spaceKeyUpTime = null;
     }
 })
+
 
 
 // ---------------- GESTION D'ANIMATION DE LA BALLE AU CONTACT DU PANIER ----------------------------

@@ -1,8 +1,9 @@
-.body {
+/* body {
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
+
 .playground {
     position: relative;
     height: 800px;
@@ -117,4 +118,27 @@ bottom: 0;
 
 
     }
+
+    .bar {
+        bottom: 20px;
+        right: 50px;
+        height: 20px;
+        width: 0;
+        background-color: aliceblue;
+        transition: width 1s linear;
+        max-width: 200px;
+
+    }
+    .bar-container {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        bottom: 20px;
+        right: 50px;
+        height: 20px;
+        width: 200px;
+        border: 5px solid black;
+    }
+    /* nom couleur quantité de vie */
+
 
