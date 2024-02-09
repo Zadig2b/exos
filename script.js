@@ -61,7 +61,7 @@ function setImageOnPlayer(){
     }
 }
 
-setImageOnPlayer()
+
 
 // --------------------------- GESTION D'ANIMATION DU JOUEUR------------------------------------
 
