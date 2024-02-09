@@ -47,7 +47,21 @@ function playgoalSound() {
     goalSound.play();
 }
 
+//---------------------------
+// function chooseTeam(){
+//     document.addEventListener("click",function())
 
+// }
+
+function setImageOnPlayer(){
+    if (Team = spursTeam){
+        let maillot = document.querySelector('chest')
+        maillot.style.background-image === spursTeam.img
+        
+    }
+}
+
+setImageOnPlayer()
 
 // --------------------------- GESTION D'ANIMATION DU JOUEUR------------------------------------
 
@@ -116,9 +130,9 @@ function launchBall(userVelocity = 1) {
         const playerRect = document.querySelector('.player').getBoundingClientRect();
         const filetRect = document.querySelector('.filet').getBoundingClientRect();
         const floorRect = document.querySelector('.floor').getBoundingClientRect();
-
-        // Get the boundaries of Panier
+        const decoRect = document.querySelector('.deco').getBoundingClientRect();
         const panierRect = document.querySelector('.panier').getBoundingClientRect();
+        const deco2Rect = document.querySelector('.deco2').getBoundingClientRect();
 
         // STOP ANIMATION AT CONDITION
         if (
@@ -131,8 +145,10 @@ function launchBall(userVelocity = 1) {
             // Reset the ball to the correct initial position
             ball.style.left = `${initialPosition.x}px`;
             ball.style.top = `${initialPosition.y}px`;
+
             //TOP CONSTRAINT
-        } else if (ballRect.y < playgroundRect.top){
+        } else if (ballRect.y < playgroundRect.top ||
+            ballRect.y <= decoRect.top && ballRect.left === decoRect.right){
             Bounce()
         playHitSound()
 
@@ -140,8 +156,23 @@ function launchBall(userVelocity = 1) {
         } else if (ballRect.y > playgroundRect.bottom - floorRect.height - ball.clientHeight) {
             Bounce()
             playHitSound()
-            //LEFT CONSTRAINT
-        } else if (ballRect.x < playgroundRect.left) {
+            //LEFT CONSTRAINT 
+        } else if (ballRect.x < playgroundRect.left ||
+            ballRect.x <= panierRect.left + decoRect.width && 
+            ballRect.x >= panierRect.left && 
+            ballRect.y + 50>= panierRect.y 
+            ||
+            //contraintes de la barre jaune
+            ballRect.left <= deco2Rect.right && 
+            ballRect.right >= deco2Rect.right &&
+            ballRect.bottom >= deco2Rect.top
+            
+            )
+             { 
+            console.log(ballRect.x)
+            console.log(deco2Rect.right)
+            console.log(deco2Rect.left)
+
             playHitSound()
             Bounce()     
 
@@ -183,7 +214,7 @@ function launchBall(userVelocity = 1) {
 
 
 let bounceCount = 0;
-const maxBounces = 3; 
+const maxBounces = 5; 
 
     function Bounce() {
     bounceCount++;
@@ -196,7 +227,7 @@ const maxBounces = 3;
         console.log('Animation stopped.');
         return;
         } else {
-            initialVelocity = { dx: 2, dy: -2 }; 
+            initialVelocity = { dx: 2, dy: -6 }; 
 
         }
 
@@ -209,6 +240,7 @@ const maxBounces = 3;
 
 let score = 0
 let goalScored = false;
+
 function goal (){
     playgoalSound()
      score += 1;
@@ -227,6 +259,7 @@ function goal (){
 let spaceKeyDownTime;
 let spaceKeyUpTime;
 let userVelocity;
+
 document.addEventListener('keydown', (event) => {
     if (event.code === 'Space' && !spaceKeyDownTime) {
         spaceKeyDownTime = new Date();
@@ -255,30 +288,3 @@ document.addEventListener('keyup', (event) => {
 
 
 // ---------------- GESTION D'ANIMATION DE LA BALLE AU CONTACT DU PANIER ----------------------------
-
-
-
-
-
-
-
-
-function displayTeams(){
-
-}
-class floor {
-
-}
-
-
-
-
-class character {
-    name;
-    model;
-    skill;
-
-    constructor(){
-        this.name = this.name
-    }
-} 
