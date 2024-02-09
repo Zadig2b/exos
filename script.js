@@ -2,25 +2,21 @@ import { Team, Player } from './team.js';
 
 // --------------------------- GESTION DES ELEMENTS DU DOM ET CLASSES ------------------------------------
 
-
+let currentTeam;
+let currentPlayer;
 // Create player instances
-const spursPlayer = new Player("Devin Vassel", "devin_image.jpg", "Skill level 1");
-const sixersPlayer = new Player("Joel Embiid", "joel_image.jpg", "Skill level 2");
-const bullsPlayer = new Player("DeMar", "demar_image.jpg", "Skill level 3");
+const spursPlayer = new Player("Devin Vassel", "./res/Spurs/DEVIN VASSELL.png");
+const sixersPlayer = new Player("Joel Embiid", "./res/76ers/JOEL EMBIID.png", "Skill level 2");
+const bullsPlayer = new Player("DeMar", "./res/Bulls/DeMar.png", "Skill level 3");
 
 // Create team instances with corresponding players
-const spursTeam = new Team(2, "Spurs", "./res/Spurs/spurs.png", spursPlayer);
-const sixersTeam = new Team(1, "76ers", "./res/76ers/76ers2.svg", sixersPlayer);
-const bullsTeam = new Team(1, "Bulls", "./res/Bulls/Bulls_de_Chicago_logo.svg", bullsPlayer);
+const spursTeam = new Team(2, "Spurs", "./res/Spurs/spurs.png", "black");
+const sixersTeam = new Team(1, "76ers", "./res/76ers/76ers2.svg", "rgb(40, 86, 184)");
+const bullsTeam = new Team(1, "Bulls", "./res/Bulls/Bulls_de_Chicago_logo.svg", "white");
 
 
 
 
-function getImage(){
-    return Player.img
-}
-
-getImage()
 
 
 function setImage(){
@@ -31,8 +27,50 @@ function setImage(){
 
 setImage()
 
-console.log(spursTeam);
-console.log(spursPlayer);
+// Add an event listener to each team image
+document.getElementById('team-img 1').addEventListener('click', () => {
+    setTeam(spursTeam);
+    setPlayer(spursPlayer)
+});
+
+document.getElementById('team-img 2').addEventListener('click', () => {
+    setTeam(sixersTeam);
+    setPlayer(sixersPlayer)
+
+});
+
+document.getElementById('team-img 3').addEventListener('click', () => {
+    setTeam(bullsTeam);
+    setPlayer(bullsPlayer)
+});
+
+
+// Function to set the current team
+function setTeam(team) {
+    // Set the current team
+    currentTeam = team;
+    // Display the inherited image on the chest
+    let maillot = document.querySelector('.chest');
+    maillot.style.backgroundImage = `url('${currentTeam.img}')`;
+    maillot.style.backgroundSize = 'contain';
+    maillot.style.backgroundColor = team.color;
+    maillot.style.backgroundPosition = 'center center';
+    maillot.style.backgroundRepeat = 'no-repeat';
+
+}
+
+function setPlayer(player) {
+    // Set the current team
+    currentPlayer = player;
+    // Display the inherited image on the face
+    let head = document.querySelector('.head');
+    head.style.backgroundImage = `url('${currentPlayer.img}')`;
+    head.style.backgroundSize = 'cover';
+    head.style.backgroundColor = 'transparent';
+    head.style.backgroundPosition = 'center center';
+
+
+}
 
 
 const hitSound = document.getElementById('hitSound');
@@ -48,19 +86,6 @@ function playgoalSound() {
 }
 
 //---------------------------
-// function chooseTeam(){
-//     document.addEventListener("click",function())
-
-// }
-
-function setImageOnPlayer(){
-    if (Team = spursTeam){
-        let maillot = document.querySelector('chest')
-        maillot.style.background-image === spursTeam.img
-        
-    }
-}
-
 
 
 // --------------------------- GESTION D'ANIMATION DU JOUEUR------------------------------------

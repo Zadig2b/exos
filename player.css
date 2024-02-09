@@ -1,71 +1,71 @@
 .player {
-    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     bottom: 0;
     left: 50%;
-    width: 40px;
-    height: 200px;
 }
 
 .arm {
     position: absolute;
-    left: -50px;
     width: 100px;
-    height: 10px;
-    background-color: rgb(167, 108, 31);    
+    height: 25px;
+    background-color: rgb(165, 109, 83);
+    z-index: 5;  
+    top: 150px;
+
 }
 
 .front {
-    background-color: aliceblue;
-    transform: rotate(25deg);
+    background-color: rgb(165, 109, 83);
+    transform: rotate(-50deg);
+    left: 100px;
+
 }
 .behind {
-    background-color: rgb(33, 41, 48);
-
+    background-color: rgb(165, 109, 83);
+    transform: rotate(50deg);
+    right: 100px;
 }
 
 .chest {
-    position: absolute;
-    bottom: 100;
-    left: 50%;
-    width: 40px;
-    height: 100px;
+    width: 100px;
+    height: 150px;
     background-color: rgb(227, 189, 138);   
+    border-radius: 20%;
+    z-index: 5;
 }
 .head {
-    position: absolute;
-    top: -70px;
-    left: 15px;
-    width: 50px;
-    height: 50px;
+    width: 150px;
+    height: 150px;
     background-color: rgb(131, 115, 92);
-    border-radius: 20%;    
+    border-radius: 20%;  
+    transform: translateY(50px);
+
 }
+
+
 .neck {
-    position: absolute;
-    top: -20px;
     left: 25px;
     width: 25px;
     height: 30px;
-    background-color: rgb(131, 115, 92);
+    background-color: rgb(62, 40, 184);
 }
 
-.short {
-    position: absolute;
-    left: 20px;
+/* .short {
     top: 100px;
-    width: 40px;
+    width: 100px;
     height: 50px;
-    background-color: aliceblue;
-}
+    background-color: rgb(79, 90, 100);
+    border-radius: 20%;
+} */
 
 .leg-front{
-    position: absolute;
-    left: 20px;
     bottom: 0px;
     width: 10px;
+    right: 50px;
     height: 50px;
-    background-color: rgb(221, 158, 158);
-}
+    background-color: rgb(165, 109, 83);}
 
 .leg-behind{
     position: absolute;
@@ -73,5 +73,4 @@
     bottom: 0px;
     width: 10px;
     height: 50px;
-    background-color: rgb(201, 134, 134);
-}
+    background-color: rgb(165, 109, 83);}
