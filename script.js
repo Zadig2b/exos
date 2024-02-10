@@ -56,6 +56,9 @@ function setTeam(team) {
     maillot.style.backgroundColor = team.color;
     maillot.style.backgroundPosition = 'center center';
     maillot.style.backgroundRepeat = 'no-repeat';
+    maillot.style.overflow = "hidden"
+    maillot.style.backgroundSize = "90%"
+
 
 }
 
@@ -84,8 +87,6 @@ function playgoalSound() {
     goalSound.currentTime = 0;
     goalSound.play();
 }
-
-//---------------------------
 
 
 // --------------------------- GESTION D'ANIMATION DU JOUEUR------------------------------------
@@ -126,7 +127,7 @@ const ball = document.querySelector('.ball');
 
 function launchBall(userVelocity = 1) {
     let initialVelocity = { dx: -4 , dy: -4 }; // Adjust direction of ball movement
-    const initialPosition = { x: -40, y: -20 }; // (left and top CSS)
+    const initialPosition = { x: -40, y: 100 }; // (left and top CSS)
     let gravity = 0
     let position = { x: initialPosition.x, y: initialPosition.y };
 
@@ -158,7 +159,8 @@ function launchBall(userVelocity = 1) {
         const decoRect = document.querySelector('.deco').getBoundingClientRect();
         const panierRect = document.querySelector('.panier').getBoundingClientRect();
         const deco2Rect = document.querySelector('.deco2').getBoundingClientRect();
-
+        const player = document.querySelector('.player').getBoundingClientRect()
+player.x
         // STOP ANIMATION AT CONDITION
         if (
             ballRect.x + ball.clientWidth > playgroundRect.right || 
