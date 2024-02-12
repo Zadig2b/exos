@@ -189,10 +189,11 @@ player.x
             ballRect.x >= panierRect.left && 
             ballRect.y + 50>= panierRect.y 
             ||
-            //contraintes de la barre jaune
+            //contraintes de la barre au dessus du filet
             ballRect.left <= deco2Rect.right && 
             ballRect.right >= deco2Rect.right &&
             ballRect.bottom >= deco2Rect.top
+
             
             )
              { 
@@ -202,7 +203,13 @@ player.x
 
             playHitSound()
             Bounce()     
-
+        } 
+        
+        else if (ballRect.bottom>=decoRect.top &&
+            ballRect.bottom <= decoRect.left &&
+            ballRect.bottom >= decoRect.right) {
+            Bounce()
+            playHitSound()
             //GOAL CONSTRAINT
         } else if (
             ballRect.left >= filetRect.left &&
