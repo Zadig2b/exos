@@ -80,11 +80,11 @@ const hitSound = document.getElementById('hitSound');
 const goalSound = document.getElementById('goalSound');
 
 function playHitSound() {
-    hitSound.currentTime = 0;
+    hitSound.currentTime = 0.05;
     hitSound.play();
 }
 function playgoalSound() {
-    goalSound.currentTime = 0;
+    goalSound.currentTime = 0.05;
     goalSound.play();
 }
 
@@ -191,11 +191,7 @@ function launchBall(userVelocity = 1) {
             ballRect.x <= panierRect.left + decoRect.width && 
             ballRect.x >= panierRect.left && 
             ballRect.y + 50>= panierRect.y 
-            ||
-            //contraintes de la barre au dessus du filet
-            ballRect.left <= deco2Rect.right && 
-            ballRect.right >= deco2Rect.right &&
-            ballRect.bottom >= deco2Rect.top
+
 
             
             )
@@ -207,12 +203,18 @@ function launchBall(userVelocity = 1) {
             playHitSound()
             Bounce()     
         } 
-        
+         //collision entre la balle et le haut du panier
+
         else if (ballRect.bottom>=decoRect.top &&
             ballRect.bottom <= decoRect.left &&
-            ballRect.bottom >= decoRect.right) {
-            Bounce()
+            ballRect.bottom >= decoRect.right 
+            ||
+            ballRect.left <= deco2Rect.right && 
+            ballRect.right >= deco2Rect.right &&
+            ballRect.bottom >= deco2Rect.top){
             playHitSound()
+            BounceToTop2()
+
             //GOAL CONSTRAINT
         } else if (
             ballRect.left >= filetRect.left &&
@@ -247,7 +249,7 @@ function launchBall(userVelocity = 1) {
     
     
     // Set up the animation loop
-    const animationInterval = setInterval(updatePosition, 7);
+    const animationInterval = setInterval(updatePosition, 8);
 
 
 let bounceCount = 0;
@@ -289,6 +291,27 @@ const maxBounces = 3;
     
             }
         } 
+
+        function BounceToTop2() {
+            bounceCount++;
+            console.log("bounceCount: "+bounceCount);
+            if (bounceCount >= maxBounces) {
+                // Stop the animation after reaching the maximum number of bounces
+                clearInterval(animationInterval);
+                ball.style.left = `${initialPosition.x}px`;
+                ball.style.top = `${initialPosition.y}px`;
+                console.log('Animation stopped.');
+                return;
+                } else if (userVelocity <=0.5){
+                    initialVelocity = { dx: 2, dy: -12 }; 
+        
+                } else {
+                    initialVelocity = { dx: 2, dy: -12 }; 
+                    console.log(userVelocity);
+        
+                }
+            } 
+
         function BounceToBottom() {
             bounceCount++;
             console.log("bounceCount: "+bounceCount);
