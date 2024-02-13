@@ -6,10 +6,10 @@
 
 .playground {
     position: relative;
-    height: 800px;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: rgba(84, 102, 59, 0.735);
+    background-color: rgba(147, 168, 118, 0.735);
 }
 
 .ball {
@@ -42,7 +42,7 @@
 .floor {
     position: absolute;
     bottom: 0;
-    width: 200px;
+    width: 100%;
     height: 10px;
     background-color: rgb(9, 22, 33);
 }
@@ -67,22 +67,25 @@ bottom: 0;
 
 .img-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     margin: 50px;
     margin-top: 0;
+    position: absolute;
+    right: 0;
 }
 
 
 .team-img {
-    width: auto;
-    height: 100px;
+    width: 100px;
+    height: auto;
     padding: 30px;
     margin: 50px;
     border-radius: 20%;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     transition: all 0.3s ease-out 10ms;
     cursor: pointer;
-    background-color: rgb(200, 176, 176);
+    background-color: rgb(255, 255, 255);
    
 }
 
@@ -100,7 +103,6 @@ bottom: 0;
         display: flex;
         justify-content: center;
         align-items: center;
-        position: absolute;
         right: 0;
         width: 100px;
         height: 100px;
@@ -128,9 +130,10 @@ bottom: 0;
         background-color: aliceblue;
         transition: width 1s linear;
         max-width: 200px;
-
     }
+    
     .bar-container {
+        z-index: 30;
         display: flex;
         flex-direction: column;
         position: fixed;

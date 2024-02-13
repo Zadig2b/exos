@@ -4,6 +4,7 @@
     align-items: center;
     bottom: 0;
     left: 50%;
+    z-index: 20;
 }
 
 .arm {
@@ -11,7 +12,6 @@
     width: 100px;
     height: 50px;
     background-color: rgb(165, 109, 83);
-    z-index: 20;
     border-radius: 20%;  
     top: 180px;
 
@@ -34,7 +34,7 @@
     width: 120px;
     height: 150px;
     background-color: rgb(227, 189, 138);
-    border-radius: 20%;
+    border-radius: 20% 20% 0% 0%;
     z-index: 5;
     transform: translateY(30px);
 }

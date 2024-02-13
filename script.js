@@ -98,17 +98,22 @@ player.style.left = '50%';
 
 function movePlayer(direction) {
     const playerSpeed = 50;
-
+    const playgroundWidth = document.querySelector('.playground').offsetWidth;
+    
     switch (direction) {
         case 'left':
-            player.style.left = `${parseInt(player.style.left, 10) - playerSpeed}px`;
+            const newLeft = Math.max(0, parseInt(player.style.left, 10) - playerSpeed);
+            player.style.left = `${Math.min(newLeft, playgroundWidth - player.offsetWidth)}px`;
             break;
         case 'right':
-            player.style.left = `${parseInt(player.style.left, 10) + playerSpeed}px`;
+            const newRight = parseInt(player.style.left, 10) + playerSpeed;
+            player.style.left = `${Math.min(newRight, playgroundWidth - player.offsetWidth)}px`;
             break;
         // Add more cases for other directions if needed
     }
 }
+
+
 
 document.addEventListener('keydown', (event) => {
     switch (event.key) {
@@ -159,8 +164,6 @@ function launchBall(userVelocity = 1) {
         const decoRect = document.querySelector('.deco').getBoundingClientRect();
         const panierRect = document.querySelector('.panier').getBoundingClientRect();
         const deco2Rect = document.querySelector('.deco2').getBoundingClientRect();
-        const player = document.querySelector('.player').getBoundingClientRect()
-player.x
         // STOP ANIMATION AT CONDITION
         if (
             ballRect.x + ball.clientWidth > playgroundRect.right || 
@@ -176,12 +179,12 @@ player.x
             //TOP CONSTRAINT
         } else if (ballRect.y < playgroundRect.top ||
             ballRect.y <= decoRect.top && ballRect.left === decoRect.right){
-            Bounce()
+            BounceToBottom()
         playHitSound()
 
         //BOTTOM CONSTRAINT
-        } else if (ballRect.y > playgroundRect.bottom - floorRect.height - ball.clientHeight) {
-            Bounce()
+        } else if (ballRect.bottom >=  floorRect.top) {
+            BounceToTop()
             playHitSound()
             //LEFT CONSTRAINT 
         } else if (ballRect.x < playgroundRect.left ||
@@ -244,11 +247,11 @@ player.x
     
     
     // Set up the animation loop
-    const animationInterval = setInterval(updatePosition, 10);
+    const animationInterval = setInterval(updatePosition, 7);
 
 
 let bounceCount = 0;
-const maxBounces = 5; 
+const maxBounces = 3; 
 
     function Bounce() {
     bounceCount++;
@@ -265,7 +268,46 @@ const maxBounces = 5;
 
         }
 
-    }       
+    }  
+    
+    function BounceToTop() {
+        bounceCount++;
+        console.log("bounceCount: "+bounceCount);
+        if (bounceCount >= maxBounces) {
+            // Stop the animation after reaching the maximum number of bounces
+            clearInterval(animationInterval);
+            ball.style.left = `${initialPosition.x}px`;
+            ball.style.top = `${initialPosition.y}px`;
+            console.log('Animation stopped.');
+            return;
+            } else if (userVelocity <=0.5){
+                initialVelocity = { dx: 2, dy: -14 }; 
+    
+            } else {
+                initialVelocity = { dx: 2, dy: -12 }; 
+                console.log(userVelocity);
+    
+            }
+        } 
+        function BounceToBottom() {
+            bounceCount++;
+            console.log("bounceCount: "+bounceCount);
+            if (bounceCount >= maxBounces) {
+                // Stop the animation after reaching the maximum number of bounces
+                clearInterval(animationInterval);
+                ball.style.left = `${initialPosition.x}px`;
+                ball.style.top = `${initialPosition.y}px`;
+                console.log('Animation stopped.');
+                return;
+                } else if (userVelocity <=0.5){
+                    initialVelocity = { dx: 2, dy: 0 }; 
+        
+                } else {
+                    initialVelocity = { dx: 2, dy: 0 }; 
+ 
+                }
+        
+            } 
 }
 
 // --------------------------------- END OF LAUNCHBALL FUNCTION ------------------------------------------
